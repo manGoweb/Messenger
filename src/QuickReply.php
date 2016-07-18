@@ -10,8 +10,21 @@ class QuickReply {
 	private $title; // max 20 chars
 	private $payload; // max 1000 chars
 
+	public static function text($title, $payload = NULL) {
+		$qr = new self;
+		$qr->contentType = self::TYPE_TEXT;
+		$qr->title = $title;
+		$qr->payload = $payload;
+		return $qr;
+	}
+
 	public function toSchema() {
-		$schema = [];
+		$schema = [
+			'content_type' => $this->contentType,
+			'title' => $this->title,
+			'payload' => Utils::serialize($this->payload),
+		];
+		$schema = array_filter($schema);
 		return $schema;
 	}
 

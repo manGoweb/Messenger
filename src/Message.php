@@ -159,7 +159,7 @@ class Message {
 
 	public function toSchema() {
 		$schema = [
-			'quick_replies' => $this->quickReplies,
+			'quick_replies' => Utils::mapSchema($this->quickReplies),
 		];
 
 		switch($this->type) {
