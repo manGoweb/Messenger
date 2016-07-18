@@ -10,7 +10,7 @@ class CardElement {
 	public $imageUrl; // ratio 1.91:1
 	public $buttons = []; // max 3
 
-	public static function create($title, $subtitle, $itemUrl, $imageUrl, $buttons) {
+	public static function create($title, $subtitle = NULL, $itemUrl = NULL, $imageUrl = NULL, array $buttons = []) {
 		$element = new self;
 		$element->title = $title;
 		$element->subtitle = $subtitle;
