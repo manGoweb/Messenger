@@ -25,6 +25,9 @@ class QuickReply {
 			'payload' => Utils::serialize($this->payload),
 		];
 		$schema = array_filter($schema);
+		if(!isset($schema['payload'])) {
+			$schema['payload'] = '-';
+		}
 		return $schema;
 	}
 

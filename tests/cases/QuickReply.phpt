@@ -6,7 +6,7 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-Assert::equal([ 'content_type' => 'text', 'title' => 'foo' ], (QuickReply::text('foo'))->toSchema());
+Assert::equal([ 'content_type' => 'text', 'title' => 'foo', 'payload' => '-' ], (QuickReply::text('foo'))->toSchema());
 
 Assert::equal([ 'content_type' => 'text', 'title' => 'foo', 'payload' => 'bar' ], (QuickReply::text('foo', 'bar'))->toSchema());
 
