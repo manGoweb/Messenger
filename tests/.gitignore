@@ -2,3 +2,4 @@ output
 /tmp
 /test.log
 /php.ini
+/locals.php

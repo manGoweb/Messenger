@@ -1,0 +1,5 @@
+<?php
+
+define('TEST_PAGE_ID', '123456789');
+define('TEST_PAGE_ACCESS_TOKEN', 'EAAJFcshTCYZBCKVoLCFJNk...');
+define('TEST_RECIPIENT_ID', '123456789');

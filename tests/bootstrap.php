@@ -19,4 +19,8 @@ $configurator = new Configurator();
 
 $configurator->setTempDirectory(__DIR__ . '/temp');
 
+if(file_exists(__DIR__ . '/locals.php')) {
+	require __DIR__ . '/locals.php';
+}
+
 return $configurator->createContainer();
