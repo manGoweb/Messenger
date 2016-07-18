@@ -2,12 +2,12 @@
 
 namespace Mangoweb\Messenger;
 
-class TestSender {
+class TestSender extends Sender {
 
 	private $output = '';
 
-	public function send($message) {
-		$this->output .= (string) $message . "\n";
+	public function send($recipient, ISendable $package) {
+		$this->output .= Utils::readable($this->pack($recipient, $package));
 	}
 
 	public function getOutput() {
