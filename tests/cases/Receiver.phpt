@@ -332,3 +332,165 @@ $out = [];
 Assert::exception(function() use ($receiver, $messageBody) {
 	$receiver->processBody(json_decode($messageBody, TRUE));
 }, 'Mangoweb\Messenger\InvalidBodyException', 'Messenger Receiver cannot process this body.');
+
+
+// multiple messages at once
+$messageBody = '{
+  "object":"page",
+  "entry":[
+    {
+      "id":"PAGE_ID",
+      "time":1458692752478,
+      "messaging":[
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+},
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+},
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+}
+      ]
+    }
+  ]
+}';
+
+$out = [];
+$receiver->processBody(json_decode($messageBody, TRUE));
+Assert::equal(['onRequest', 'onEntry', 'onReceive', 'onMessage', 'onReceive', 'onMessage', 'onReceive', 'onMessage'], $out);
+
+
+// multiple entries and messages
+$messageBody = '{
+  "object":"page",
+  "entry":[
+    {
+      "id":"PAGE_ID",
+      "time":1458692752478,
+      "messaging":[
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+},
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+}
+      ]
+    },
+  
+    {
+      "id":"PAGE_ID",
+      "time":1458692752478,
+      "messaging":[
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+},
+{
+  "sender":{
+    "id":"USER_ID"
+  },
+  "recipient":{
+    "id":"PAGE_ID"
+  },
+  "timestamp":1458692752478,
+  "message":{
+    "mid":"mid.1457764197618:41d102a3e1ae206a38",
+    "seq":73,
+    "text":"hello, world!",
+    "quick_reply": {
+      "payload": "DEVELOPER_DEFINED_PAYLOAD"
+    }
+  }
+}
+      ]
+    }
+  ]
+}';
+
+$out = [];
+$receiver->processBody(json_decode($messageBody, TRUE));
+Assert::equal(['onRequest', 'onEntry', 'onReceive', 'onMessage', 'onReceive', 'onMessage', 'onEntry', 'onReceive', 'onMessage', 'onReceive', 'onMessage'], $out);
