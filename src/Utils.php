@@ -54,4 +54,13 @@ class Utils {
 		echo self::readable(is_array($el) ? $el : $el->toSchema());
 	}
 
+	static function verifyWebhook($verifyToken, $parameters) {
+		if(!empty($parameters['hub_verify_token'])) {
+			if($parameters['hub_verify_token'] === $verifyToken) {
+				return $parameters['hub_challenge'];
+			}
+		}
+		return FALSE;
+	}
+
 }
