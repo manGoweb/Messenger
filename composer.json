@@ -11,7 +11,8 @@
 	},
 	"require": {
 		"php":              ">=7.0",
-		"nette/utils":      "~2.4"
+		"nette/utils":      "~2.4",
+		"guzzlehttp/guzzle": "^6.2"
 	},
 	"require-dev": {
 		"tracy/tracy":      "~2.4",
