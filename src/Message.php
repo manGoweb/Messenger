@@ -2,7 +2,7 @@
 
 namespace Mangoweb\Messenger;
 
-class Message {
+class Message implements ISendable {
 
 	const MESSAGE_TYPE_TEXT = 'text';
 	const MESSAGE_TYPE_ATTACHMENT = 'attachment';
@@ -155,6 +155,10 @@ class Message {
 		}
 		$schema = array_filter($schema);
 		return $schema;
+	}
+
+	public function getSendType() {
+		return 'message';
 	}
 
 	public function toSchema() {

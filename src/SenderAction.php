@@ -2,7 +2,7 @@
 
 namespace Mangoweb\Messenger;
 
-class SenderAction {
+class SenderAction implements ISendable {
 
 	const TYPE_TYPING_ON = 'typing_on';
 	const TYPE_TYPING_OFF = 'typing_off';
@@ -20,6 +20,10 @@ class SenderAction {
 		$sa = new self;
 		$sa->type = self::TYPE_MARK_SEEN;
 		return $sa;
+	}
+
+	public function getSendType() {
+		return 'sender_action';
 	}
 
 	public function toSchema() {
