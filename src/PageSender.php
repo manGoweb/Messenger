@@ -11,8 +11,8 @@ class PageSender extends Sender {
 	}
 
 	public function send($recipient, ISendable $package) {
-		$token = $this->page->getToken();
-		// @TODO: send via API
+		$packed = $this->pack($recipient, $package);
+		return $this->page->sendMessage($packed);
 	}
 
 }
