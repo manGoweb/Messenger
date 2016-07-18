@@ -44,19 +44,72 @@ class Page {
 	}
 
 	public function loadInfo() {
+		$token = $this->getToken();
 
+		$params = [
+			'query' => [
+				'access_token' => $token,
+				'fields' => 'about,name'
+			],
+		];
+
+		try {
+			$res = $this->request('GET', '/me', $params);
+		} catch(Exception $e) {
+			Debugger::log($e);
+			return FALSE;
+		}
+
+		return json_decode((string) $res->getBody(), TRUE);
 	}
 
 	public function loadProfile($id) {
-		
+		$token = $this->getToken();
+
+		$params = [
+			'query' => [
+				'access_token' => $token
+			],
+		];
+
+		try {
+			$res = $this->request('GET', '/' . $id, $params);
+		} catch(Exception $e) {
+			Debugger::log($e);
+			return FALSE;
+		}
+
+		return json_decode((string) $res->getBody(), TRUE);
 	}
 
-	public function loadSubscribed($id) {
-		
+	public function loadSubscribedApps() {
+		$token = $this->getToken();
+
+		$params = [
+			'query' => [
+				'access_token' => $token
+			],
+		];
+
+		try {
+			$res = $this->request('GET', '/me/subscribed_apps', $params);
+		} catch(Exception $e) {
+			Debugger::log($e);
+			return FALSE;
+		}
+
+		return json_decode((string) $res->getBody(), TRUE)['data'];
 	}
 
 	public function isHookedToApp($appId) {
-		
+		$subscribed = $this->loadSubscribedApps();
+		$appId = (string) $appId;
+		foreach($subscribed as $app) {
+			if($appId === $app['id']) {
+				return TRUE;
+			}
+		}
+		return FALSE;
 	}
 
 	public function sendMessage($payload) {
