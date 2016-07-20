@@ -2,7 +2,13 @@
 
 namespace Mangoweb\Messenger;
 
+use Nette\Utils\Validators;
+use Nette\Utils\AssertionException;
+
 class CardElement {
+
+	const MAX_TITLE_CHARS = 80;
+	const MAX_SUBTITLE_CHARS = 80;
 
 	public $title; // max 80 chars
 	public $subtitle; // max 80 chars
@@ -12,13 +18,54 @@ class CardElement {
 
 	public static function create($title, $subtitle = NULL, $itemUrl = NULL, $imageUrl = NULL, array $buttons = []) {
 		$element = new self;
-		$element->title = $title;
-		$element->subtitle = $subtitle;
-		$element->itemUrl = $itemUrl;
-		$element->imageUrl = $imageUrl;
-		$element->buttons = $buttons;
+		$element->title = self::sanitizeTitle($title);
+		$element->subtitle = self::sanitizeSubtitle($subtitle);
+		$element->itemUrl = self::sanitizeItemUrl($itemUrl);
+		$element->imageUrl = self::sanitizeImageUrl($imageUrl);
+		$element->buttons = self::sanitizeButtons($buttons);
 		return $element;
 	}
+
+	public static function sanitizeTitle($value) {
+		Validators::assert($value, 'string:1..' . self::MAX_TITLE_CHARS, 'title');
+		return $value;
+	}
+
+	public static function sanitizeSubtitle($value) {
+		if(empty($value)) {
+			return NULL;
+		}
+		Validators::assert($value, 'string:1..' . self::MAX_SUBTITLE_CHARS, 'subtitle');
+		return $value;
+	}
+
+	public static function sanitizeItemUrl($value) {
+		if(empty($value)) {
+			return NULL;
+		}
+		Validators::assert($value, 'url', 'itemUrl');
+		return $value;
+	}
+
+	public static function sanitizeImageUrl($value) {
+		if(empty($value)) {
+			return NULL;
+		}
+		Validators::assert($value, 'url', 'imageUrl');
+		return $value;
+	}
+
+	public static function sanitizeButtons(array $value = []) {
+		if(empty($value)) {
+			return NULL;
+		}
+		if(count($value) > 3) {
+			throw new AssertionException("The buttons count cannot be more than 3.");
+		}
+		return $value;
+	}
+
+
 
 	public function toSchema() {
 		$schema = [
