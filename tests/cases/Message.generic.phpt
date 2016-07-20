@@ -7,7 +7,7 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
-$message = Message::generic([ CardElement::create('title', 'subtitle', 'itemUrl', 'imageUrl', [ Button::url('Button', 'url')]) ]);
+$message = Message::generic([ CardElement::create('title', 'subtitle', 'https://fb.com/', 'https://unsplash.it/800/600', [ Button::url('Button', 'https://fb.com/')]) ]);
 Assert::equal([
 	'attachment' => [
 		'type' => 'template',
@@ -16,19 +16,19 @@ Assert::equal([
 			'elements' => [[
 				'title' => 'title',
 				'subtitle' => 'subtitle',
-				'item_url' => 'itemUrl',
-				'image_url' => 'imageUrl',
+				'item_url' => 'https://fb.com/',
+				'image_url' => 'https://unsplash.it/800/600',
 				'buttons' => [[
 					'type' => 'web_url',
 					'title' => 'Button',
-					'url' => 'url'
+					'url' => 'https://fb.com/'
 				]]
 			]]
 		]
 	]
 ], $message->toSchema());
 
-$message = Message::generic([ CardElement::create('Lorem', 'ipsum dolor', NULL, NULL, [ Button::postback('Button', 'test'), Button::url('Button', 'url') ]) ]);
+$message = Message::generic([ CardElement::create('Lorem', 'ipsum dolor', NULL, NULL, [ Button::postback('Button', 'test'), Button::url('Button', 'https://fb.com/') ]) ]);
 Assert::equal([
 	'attachment' => [
 		'type' => 'template',
@@ -45,7 +45,7 @@ Assert::equal([
 				[
 					'type' => 'web_url',
 					'title' => 'Button',
-					'url' => 'url'
+					'url' => 'https://fb.com/'
 				]]
 			]]
 		]
