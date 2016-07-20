@@ -25,11 +25,11 @@ class Utils {
 	static function map($array, $method, $params = []) {
 		return array_map(function($item) use ($method, $params) {
 			return call_user_func_array([ $item, $method ], (array) $params);
-		}, $array);
+		}, (array) $array);
 	}
 
-	static function mapSchema(array $array = []) {
-		return self::map($array, 'toSchema');
+	static function mapSchema($array = []) {
+		return self::map((array) $array, 'toSchema');
 	}
 
 	static function serialize($payload, $readable = FALSE) {
