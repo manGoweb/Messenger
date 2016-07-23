@@ -18,7 +18,7 @@ $sender = new PageSender($page);
 
 // Sending simple text message
 $textMessage = Message::text('Hello world!');
-$sender->send(RECIPIENT_ID, $imageMessage);
+$sender->send(RECIPIENT_ID, $textMessage);
 
 // Sending an image attachment
 $imageMessage = Message::image('https://unsplash.it/400/300');
