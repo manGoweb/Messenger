@@ -131,5 +131,97 @@ class Page {
 		return $status === 200;
 	}
 
+	public function setGreeting(Greeting $greeting) {
+		$token = $this->getToken();
+
+		$payload = $greeting->toSchema();
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('POST', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+	}
+
+	public function removeGreeting() {
+		return $this->setGreeting(Greeting::text(''));
+	}
+
+	public function setGetStartedButton(GetStartedButton $button) {
+		$token = $this->getToken();
+
+		$payload = $button->toSchema();
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('POST', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+	}
+
+	public function removeGetStartedButton() {
+		$token = $this->getToken();
+
+		$button = GetStartedButton::empty();
+		$payload = $button->toSchema();
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('DELETE', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+		
+	}
+
+	public function setPersistentMenu(PersistentMenu $menu) {
+		$token = $this->getToken();
+
+		$payload = $menu->toSchema();
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('POST', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+	}
+
+	public function removePersistentMenu() {
+		$token = $this->getToken();
+
+		$menu = PersistentMenu::empty();
+		$payload = $menu->toSchema();
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('DELETE', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+	}
+
 
 }
