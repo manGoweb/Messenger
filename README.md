@@ -11,6 +11,7 @@ The `PAGE_ACCESS_TOKEN` must be Facebook Page `access_token` with `pages_messagi
 use Mangoweb\Messenger\Page;
 use Mangoweb\Messenger\PageSender;
 use Mangoweb\Messenger\Message;
+use Mangoweb\Messenger\CardElement;
 use Mangoweb\Messenger\Button;
 
 $page = new Page(PAGE_ACCESS_TOKEN);
