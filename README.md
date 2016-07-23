@@ -7,6 +7,8 @@ The `PAGE_ACCESS_TOKEN` must be Facebook Page `access_token` with `pages_messagi
 
 ### Sending messages
 
+<img align="right" src="doc/screencast.gif" width="200">
+
 ```php
 use Mangoweb\Messenger\Page;
 use Mangoweb\Messenger\PageSender;
