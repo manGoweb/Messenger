@@ -34,7 +34,7 @@ $cards = [
 	CardElement::create('Foo', NULL, NULL, 'https://unsplash.it/400/300?random')
 ];
 
-$messageWithCards = Message::generic($cards)
+$messageWithCards = Message::generic($cards);
 $sender->send(RECIPIENT_ID, $messageWithCards);
 ```
 
