@@ -1,13 +1,21 @@
-Messenger interface
-===================
+Messenger PHP
+=============
+
+## Installation
+
+Use composer:
+
+```bash
+$ composer require mangoweb/messenger
+```
 
 ## Usage
+
+![Example screencast](doc/screencast.gif)
 
 The `PAGE_ACCESS_TOKEN` must be Facebook Page `access_token` with `pages_messaging` permission. `RECIPIENT_ID` is different for each Facebook App, Page and User.
 
 ### Sending messages
-
-<img align="right" src="doc/screencast.gif" width="200">
 
 ```php
 use Mangoweb\Messenger\Page;
@@ -135,14 +143,6 @@ $payload = json_decode($httpBody, TRUE);
 // Process the payload
 $receiver->processBody($payload);
 
-```
-
-## Installation
-
-Use composer:
-
-```bash
-$ composer require mangoweb/messenger
 ```
 
 ## Tests
