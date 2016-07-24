@@ -61,15 +61,15 @@ use Mangoweb\Messenger\Button;
 $page = new Page(PAGE_ACCESS_TOKEN);
 
 // Detect if page is already hooked to your Facebook App
-echo $page->isHookedToApp(APP_ID) ? 'already hooked' : 'not yet hooked';
+echo ($page->isHookedToApp(APP_ID) ? 'already hooked' : 'not yet hooked') . "\n";
 
 // Load basic info about a Page
 $info = $page->loadInfo();
-echo $info['name'];
+echo $info['name'] . "\n";
 
 // Load info about user as the Page can see them
 $profile = $page->loadProfile(RECIPIENT_ID);
-echo $profile['first_name'] . ' ' . $profile['last_name'];
+echo $profile['first_name'] . ' ' . $profile['last_name'] . "\n";
 
 // Set greeting text
 $page->setGreeting(Greeting::text('Hello world'));
@@ -93,12 +93,12 @@ $receiver = new Receiver();
 
 // Define event hooks
 $receiver->onMessage[] = function($message) {
-	echo "Someone sent us a message";
+	echo "Someone sent us a message" . "\n";
 	var_dump($message);
 };
 
 $receiver->onPostback[]  = function($postback) {
-	echo "Someone clicked on a postback button";
+	echo "Someone clicked on a postback button" . "\n";
 	var_dump($postback);
 };
 
