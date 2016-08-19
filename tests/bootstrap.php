@@ -1,10 +1,7 @@
 <?php
 
-namespace NextrasTests\Orm;
-
 use Nette\Configurator;
 use Tester\Environment;
-
 
 if (@!include __DIR__ . '/../vendor/autoload.php') {
 	echo "Install Nette Tester using `composer update`\n";
