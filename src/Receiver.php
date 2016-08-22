@@ -48,20 +48,20 @@ class Receiver extends Object {
 				if(array_key_exists(self::MESSAGING_KEY_MESSAGE, $messaging)) {
 					$message = $messaging[self::MESSAGING_KEY_MESSAGE];
 					if(array_key_exists(self::MESSAGING_IS_ECHO_KEY, $message) && $message[self::MESSAGING_IS_ECHO_KEY] === TRUE) {
-						$this->onEcho($message, $entry, $body);
+						$this->onEcho($message, $messaging, $entry, $body);
 					} else {
-						$this->onMessage($message, $entry, $body);
+						$this->onMessage($message, $messaging, $entry, $body);
 					}
 				} else if(array_key_exists(self::MESSAGING_KEY_POSTBACK, $messaging)) {
-					$this->onPostback($messaging[self::MESSAGING_KEY_POSTBACK], $entry, $body);
+					$this->onPostback($messaging[self::MESSAGING_KEY_POSTBACK], $messaging, $entry, $body);
 				} else if(array_key_exists(self::MESSAGING_KEY_OPTIN, $messaging)) {
-					$this->onOptin($messaging[self::MESSAGING_KEY_OPTIN], $entry, $body);
+					$this->onOptin($messaging[self::MESSAGING_KEY_OPTIN], $messaging, $entry, $body);
 				} else if(array_key_exists(self::MESSAGING_KEY_ACCOUNT_LINKING, $messaging)) {
-					$this->onAccountLinking($messaging[self::MESSAGING_KEY_ACCOUNT_LINKING], $entry, $body);
+					$this->onAccountLinking($messaging[self::MESSAGING_KEY_ACCOUNT_LINKING], $messaging, $entry, $body);
 				} else if(array_key_exists(self::MESSAGING_KEY_DELIVERY, $messaging)) {
-					$this->onDelivery($messaging[self::MESSAGING_KEY_DELIVERY], $entry, $body);
+					$this->onDelivery($messaging[self::MESSAGING_KEY_DELIVERY], $messaging, $entry, $body);
 				} else if(array_key_exists(self::MESSAGING_KEY_READ, $messaging)) {
-					$this->onRead($messaging[self::MESSAGING_KEY_READ], $entry, $body);
+					$this->onRead($messaging[self::MESSAGING_KEY_READ], $messaging, $entry, $body);
 				}
 
 			}
