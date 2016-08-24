@@ -2,6 +2,7 @@
 
 namespace Mangoweb\Messenger;
 
+use Mangoweb\Messenger\Utils;
 use Nette\Utils\Validators;
 use Nette\Utils\AssertionException;
 
@@ -27,7 +28,7 @@ class Button {
 	}
 
 	public static function sanitizeTitle($value) {
-		Validators::assert($value, 'string:1..' . self::MAX_TITLE_CHARS, 'title');
+		Utils::maxLength($value, self::MAX_TITLE_CHARS, 'title');
 		return $value;
 	}
 
@@ -37,7 +38,7 @@ class Button {
 	}
 
 	public static function sanitizePayload($value) {
-		Validators::assert($value, 'string:1..' . self::MAX_PAYLOAD_CHARS, 'payload');
+		Utils::maxLength($value, self::MAX_PAYLOAD_CHARS, 'payload');
 		return $value;
 	}
 

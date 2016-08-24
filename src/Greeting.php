@@ -2,7 +2,7 @@
 
 namespace Mangoweb\Messenger;
 
-use Nette\Utils\Validators;
+use Mangoweb\Messenger\Utils;
 use Nette\Utils\AssertionException;
 
 class Greeting {
@@ -15,7 +15,7 @@ class Greeting {
 	public $text;
 
 	public static function sanitizeText($value) {
-		Validators::assert($value, 'string:1..' . self::MAX_TEXT_CHARS, 'text');
+		Utils::maxLength($value, self::MAX_TEXT_CHARS, 'text');
 		return $value;
 	}
 

@@ -3,6 +3,7 @@
 namespace Mangoweb\Messenger;
 
 use Nette\Utils\Strings;
+use Nette\Utils\AssertionException;
 
 class Utils {
 
@@ -61,6 +62,14 @@ class Utils {
 			}
 		}
 		return FALSE;
+	}
+
+	static function maxLength($str, $maxLength, $variableName = 'value') {
+		$length = Strings::length($str);
+		if($length > $maxLength) {
+			throw new AssertionException("The $variableName should be shorter than $maxLength, is $length.");
+		}
+		return TRUE;
 	}
 
 }

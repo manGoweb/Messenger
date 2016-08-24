@@ -28,7 +28,7 @@ Assert::equal([
 Assert::exception(function() {
 	$longString = str_repeat('x', 1100);
 	Button::postback('title', $longString);
-}, 'Nette\Utils\AssertionException', "The payload expects to be string in range 1..1000, string given.");
+}, 'Nette\Utils\AssertionException', "The payload should be shorter than 1000, is 1100.");
 
 $button = Button::phone('title', '+420739123456');
 

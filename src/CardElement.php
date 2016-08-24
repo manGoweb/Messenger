@@ -2,6 +2,7 @@
 
 namespace Mangoweb\Messenger;
 
+use Mangoweb\Messenger\Utils;
 use Nette\Utils\Validators;
 use Nette\Utils\AssertionException;
 
@@ -27,7 +28,7 @@ class CardElement {
 	}
 
 	public static function sanitizeTitle($value) {
-		Validators::assert($value, 'string:1..' . self::MAX_TITLE_CHARS, 'title');
+		Utils::maxLength($value, self::MAX_TITLE_CHARS, 'title');
 		return $value;
 	}
 
@@ -35,7 +36,7 @@ class CardElement {
 		if(empty($value)) {
 			return NULL;
 		}
-		Validators::assert($value, 'string:1..' . self::MAX_SUBTITLE_CHARS, 'subtitle');
+		Utils::maxLength($value, self::MAX_SUBTITLE_CHARS, 'subtitle');
 		return $value;
 	}
 

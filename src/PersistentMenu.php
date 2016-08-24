@@ -2,7 +2,6 @@
 
 namespace Mangoweb\Messenger;
 
-use Nette\Utils\Validators;
 use Nette\Utils\AssertionException;
 
 class PersistentMenu {

@@ -17,4 +17,4 @@ Assert::equal([
 Assert::exception(function() {
 	$tooLongString = str_repeat('x', 200);
 	Greeting::text($tooLongString);
-}, 'Nette\Utils\AssertionException', "The text expects to be string in range 1..160, string given.");
+}, 'Nette\Utils\AssertionException', "The text should be shorter than 160, is 200.");

@@ -2,9 +2,6 @@
 
 namespace Mangoweb\Messenger;
 
-use Nette\Utils\Validators;
-use Nette\Utils\AssertionException;
-
 class GetStartedButton {
 
 	const SETTING_TYPE_CALL_TO_ACTIONS = 'call_to_actions';
