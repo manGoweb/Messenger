@@ -30,6 +30,27 @@ Assert::exception(function() {
 	Button::postback('title', $longString);
 }, 'Nette\Utils\AssertionException', "The payload should be shorter than 1000, is 1100.");
 
+$button = Button::accountLink('title', 'https://fb.com/');
+
+Assert::equal([
+	'type' => 'account_link',
+	'title' => 'title',
+	'url' => 'https://fb.com/'
+], $button->toSchema());
+
+Assert::exception(function() {
+	Button::accountLink('title', 'invalid url');
+}, 'Nette\Utils\AssertionException', "The url expects to be url, string 'invalid url' given.");
+
+$button = Button::accountUnlink('title');
+
+Assert::equal([
+	'type' => 'account_unlink',
+	'title' => 'title',
+], $button->toSchema());
+
+$button = Button::postback('title', 'xxxxxxxxxx');
+
 $button = Button::phone('title', '+420739123456');
 
 Assert::equal([
