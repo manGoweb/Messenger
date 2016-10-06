@@ -13,6 +13,36 @@ Assert::equal([
 	'url' => 'https://fb.com/'
 ], $button->toSchema());
 
+$button = Button::url('title', 'https://fb.com/', TRUE);
+
+Assert::equal([
+	'type' => 'web_url',
+	'title' => 'title',
+	'url' => 'https://fb.com/',
+	'messenger_extensions' => TRUE
+], $button->toSchema());
+
+$button = Button::url('title', 'https://fb.com/', TRUE, 'https://fallback-fb.com/');
+
+Assert::equal([
+	'type' => 'web_url',
+	'title' => 'title',
+	'url' => 'https://fb.com/',
+	'fallback_url' => 'https://fallback-fb.com/',
+	'messenger_extensions' => TRUE
+], $button->toSchema());
+
+$button = Button::compact('title', 'https://fb.com/', TRUE, 'https://fallback-fb.com/');
+
+Assert::equal([
+	'type' => 'web_url',
+	'title' => 'title',
+	'url' => 'https://fb.com/',
+	'fallback_url' => 'https://fallback-fb.com/',
+	'messenger_extensions' => TRUE,
+	'webview_height_ratio' => 'compact'
+], $button->toSchema());
+
 Assert::exception(function() {
 	Button::url('title', 'invalid url');
 }, 'Nette\Utils\AssertionException', "The url expects to be url, string 'invalid url' given.");
@@ -70,3 +100,10 @@ Assert::exception(function() {
 Assert::exception(function() {
 	Button::phone('title', '+abcdefghi');
 }, 'Nette\Utils\AssertionException', "The phoneNumber expects to be pattern in range \+[0-9]{6,15}, string '+abcdefghi' given.");
+
+
+$button = Button::share();
+
+Assert::equal([
+	'type' => 'element_share',
+], $button->toSchema());
