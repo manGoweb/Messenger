@@ -48,7 +48,7 @@ array(3) {
 }
 ';
 
-	Assert::equal($expected, $actual);
+	Assert::equal(Strings::normalize($expected), Strings::normalize($actual));
 } else {
 	Tester\Environment::skip('Test requires defined constants `TEST_PAGE_ACCESS_TOKEN` and `TEST_RECIPIENT_ID`.');
 }
