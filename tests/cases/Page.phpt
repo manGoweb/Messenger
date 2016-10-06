@@ -9,6 +9,25 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap.php';
 
+$page = new Page('token');
+Assert::equal([
+	"setting_type" => "domain_whitelisting",
+	"whitelisted_domains" => ["https://fb.com/"],
+	"domain_action_type" => "add"
+], $page->createDomainWhitelistingPayload('https://fb.com/'));
+
+Assert::equal([
+	'setting_type' => 'domain_whitelisting',
+	'whitelisted_domains' => ['https://fb.com/', 'https://messenger.com/'],
+	'domain_action_type' => 'add'
+], $page->createDomainWhitelistingPayload([ 'https://fb.com/', 'https://messenger.com/' ]));
+
+Assert::equal([
+	'setting_type' => 'domain_whitelisting',
+	'whitelisted_domains' => ['https://fb.com/', 'https://messenger.com/'],
+	'domain_action_type' => 'remove'
+], $page->createDomainWhitelistingPayload([ 'https://fb.com/', 'https://messenger.com/' ], 'remove'));
+
 if(defined('TEST_PAGE_ACCESS_TOKEN')) {
 	$page = new Page(TEST_PAGE_ACCESS_TOKEN);
 

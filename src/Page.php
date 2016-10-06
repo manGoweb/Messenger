@@ -223,5 +223,36 @@ class Page {
 		return $status === 200;
 	}
 
+	public function createDomainWhitelistingPayload($domains, $action = 'add') {
+		if(!is_array($domains)) {
+			$domains = [ $domains ];
+		}
+
+		$payload = [
+			'setting_type' => 'domain_whitelisting',
+			'whitelisted_domains' => $domains,
+			'domain_action_type'=> $action,
+		];
+
+		return $payload;
+	}
+
+	public function whitelistDomainForExtensions($domain, $action = 'add') {
+		$token = $this->getToken();
+
+		$payload = $this->createDomainWhitelistingPayload($domain, $action);
+
+		$params = [
+			'query' => [ 'access_token' => $token ],
+			'json' => $payload,
+		];
+
+		$res = $this->request('POST', '/me/thread_settings', $params);
+
+		$status = $res->getStatusCode();
+
+		return $status === 200;
+	}
+
 
 }
