@@ -20,6 +20,7 @@ class Message implements ISendable {
 	public $text = '';
 	public $type = self::MESSAGE_TYPE_TEXT;
 	public $attachmentType;
+	public $isReusable;
 	public $attachmentUrl;
 	public $templateType;
 	public $payload;
@@ -39,28 +40,31 @@ class Message implements ISendable {
 		return $message;
 	}
 
-	public static function attachment($url, $type = self::ATTACHMENT_TYPE_FILE) {
+	public static function attachment($url, $type = self::ATTACHMENT_TYPE_FILE, $isReusable = NULL) {
 		$message = new self;
 		$message->attachmentUrl = $url;
 		$message->type = self::MESSAGE_TYPE_ATTACHMENT;
 		$message->attachmentType = $type;
+		if(is_bool($isReusable)) {
+			$message->isReusable = $isReusable;
+		}
 		return $message;
 	}
 
-	public static function image($url) {
-		return self::attachment($url, self::ATTACHMENT_TYPE_IMAGE);
+	public static function image($url, $isReusable = NULL) {
+		return self::attachment($url, self::ATTACHMENT_TYPE_IMAGE, $isReusable);
 	}
 
-	public static function audio($url) {
-		return self::attachment($url, self::ATTACHMENT_TYPE_AUDIO);
+	public static function audio($url, $isReusable = NULL) {
+		return self::attachment($url, self::ATTACHMENT_TYPE_AUDIO, $isReusable);
 	}
 
-	public static function video($url) {
-		return self::attachment($url, self::ATTACHMENT_TYPE_VIDEO);
+	public static function video($url, $isReusable = NULL) {
+		return self::attachment($url, self::ATTACHMENT_TYPE_VIDEO, $isReusable);
 	}
 
-	public static function file($url) {
-		return self::attachment($url, self::ATTACHMENT_TYPE_FILE);
+	public static function file($url, $isReusable = NULL) {
+		return self::attachment($url, self::ATTACHMENT_TYPE_FILE, $isReusable);
 	}
 
 	public static function receipt($recipient_name, $order_number, $currency, $payment_method, $order_url, $timestamp, $elements, $address, $summary, $adjustments) {
@@ -102,6 +106,9 @@ class Message implements ISendable {
 			case self::ATTACHMENT_TYPE_VIDEO:
 			case self::ATTACHMENT_TYPE_FILE:
 				$schema['payload'] = [ 'url' => $this->attachmentUrl ];
+				if(is_bool($this->isReusable)) {
+					$schema['payload']['is_reusable'] = $this->isReusable;
+				}
 				break;
 			default:
 				return 'UNKNOWN_ATTACHMENT_TYPE';

@@ -27,6 +27,17 @@ Assert::equal([
 	]
 ], $message->toSchema());
 
+$message = Message::image('path/to/image.jpg', TRUE);
+Assert::equal([
+	'attachment' => [
+		'type' => 'image',
+		'payload' => [
+			'url' => 'path/to/image.jpg',
+			'is_reusable' => TRUE,
+		]
+	]
+], $message->toSchema());
+
 $message = Message::audio('path/to/audio.mp3');
 Assert::equal([
 	'attachment' => [
