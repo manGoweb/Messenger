@@ -7,7 +7,7 @@ use GuzzleHttp;
 
 class Page {
 
-	const BASE_URL = 'https://graph.facebook.com/v2.6';
+	const BASE_URL = 'https://graph.facebook.com/v2.8';
 
 	private $token;
 

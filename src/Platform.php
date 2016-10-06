@@ -12,7 +12,7 @@ class Platform {
 			'query' => [ 'access_token' => $pageAccessToken ],
 		];
 
-		$res = $client->request('POST', 'https://graph.facebook.com/v2.6/me/subscribed_apps', $payload);
+		$res = $client->request('POST', 'https://graph.facebook.com/v2.8/me/subscribed_apps', $payload);
 
 		$status = $res->getStatusCode();
 
