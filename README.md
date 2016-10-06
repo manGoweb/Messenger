@@ -23,6 +23,7 @@ use Mangoweb\Messenger\PageSender;
 use Mangoweb\Messenger\Message;
 use Mangoweb\Messenger\CardElement;
 use Mangoweb\Messenger\Button;
+use Mangoweb\Messenger\QuickReply;
 
 $page = new Page(PAGE_ACCESS_TOKEN);
 $sender = new PageSender($page);
