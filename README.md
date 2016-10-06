@@ -106,36 +106,36 @@ $receiver->onPostback[]  = function($postback) {
 $httpBody = file_get_contents('php://input');
 /*
 $httpBody = '{
-  "object":"page",
-  "entry":[
-    {
-      "id":"PAGE_ID",
-      "time":1458692752478,
-      "messaging":[
-        {
-          "sender":{
-            "id":"USER_ID"
-          },
-          "recipient":{
-            "id":"PAGE_ID"
-          },
-          "timestamp":1458692752478,
-          "message":{
-            "mid":"mid.1458696618141:b4ef9d19ec21086067",
-            "seq":51,
-            "attachments":[
-              {
-                "type":"image",
-                "payload":{
-                  "url":"IMAGE_URL"
-                }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  ]
+	"object":"page",
+	"entry":[
+		{
+			"id":"PAGE_ID",
+			"time":1458692752478,
+			"messaging":[
+				{
+					"sender":{
+						"id":"USER_ID"
+					},
+					"recipient":{
+						"id":"PAGE_ID"
+					},
+					"timestamp":1458692752478,
+					"message":{
+						"mid":"mid.1458696618141:b4ef9d19ec21086067",
+						"seq":51,
+						"attachments":[
+							{
+								"type":"image",
+								"payload":{
+									"url":"IMAGE_URL"
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	]
 }';
 */
 $payload = json_decode($httpBody, TRUE);
