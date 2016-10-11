@@ -128,7 +128,7 @@ class Page {
 		}
 
 		$status = $res->getStatusCode();
-		return $status === 200;
+		return json_decode((string) $res->getBody(), TRUE);
 	}
 
 	public function setGreeting(Greeting $greeting) {
