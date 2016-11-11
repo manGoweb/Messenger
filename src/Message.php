@@ -14,8 +14,12 @@ class Message implements ISendable {
 	const ATTACHMENT_TYPE_TEMPLATE = 'template';
 
 	const TEMPLATE_TYPE_GENERIC = 'generic';
+	const TEMPLATE_TYPE_LIST = 'list';
 	const TEMPLATE_TYPE_BUTTON = 'button';
 	const TEMPLATE_TYPE_RECEIPT = 'receipt';
+
+	const TOP_ELEMENT_STYLE_LARGE = 'large';
+	const TOP_ELEMENT_STYLE_COMPACT = 'compact';
 
 	public $text = '';
 	public $type = self::MESSAGE_TYPE_TEXT;
@@ -23,6 +27,7 @@ class Message implements ISendable {
 	public $isReusable;
 	public $attachmentUrl;
 	public $templateType;
+	public $topElementStyle;
 	public $payload;
 	// Array<QuickReply>
 	public $quickReplies = [];
@@ -93,6 +98,25 @@ class Message implements ISendable {
 		return $message;
 	}
 
+	public static function list($elements, $buttons = [], $topElementStyle = self::TOP_ELEMENT_STYLE_COMPACT) {
+		$message = new self;
+		$message->type = self::MESSAGE_TYPE_ATTACHMENT;
+		$message->attachmentType = self::ATTACHMENT_TYPE_TEMPLATE;
+		$message->templateType = self::TEMPLATE_TYPE_LIST;
+		$message->cardElements = $elements;
+		$message->buttons = $buttons;
+		$message->topElementStyle = $topElementStyle;
+		return $message;
+	}
+
+	public static function largeList($elements, $buttons = []) {
+		return self::list($elements, $buttons, self::TOP_ELEMENT_STYLE_LARGE);
+	}
+
+	public static function compactList($elements, $buttons = []) {
+		return self::list($elements, $buttons, self::TOP_ELEMENT_STYLE_COMPACT);
+	}
+
 	public function attachmentToSchema() {
 		$schema = [
 			'type' => $this->attachmentType,
@@ -127,7 +151,13 @@ class Message implements ISendable {
 				$schema['buttons'] = Utils::mapSchema($this->buttons);
 				break;
 			case self::TEMPLATE_TYPE_GENERIC:
+				$schema['elements'] = Utils::mapSchema($this->cardElements);
+				break;
+			case self::TEMPLATE_TYPE_LIST:
 				$schema['buttons'] = Utils::mapSchema($this->buttons);
+				if($this->topElementStyle) {
+					$schema['top_element_style'] = $this->topElementStyle;
+				}
 				$schema['elements'] = Utils::mapSchema($this->cardElements);
 				break;
 			case self::TEMPLATE_TYPE_RECEIPT:
